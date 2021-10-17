@@ -36,6 +36,12 @@ elseif(ZEPHYR_BASE)
 
     endif(CONFIG_LVGL)
 
+elseif(MBED_PATH)
+    # interface lib for mbed-os  https://github.com/ARMmbed/mbed-os
+    file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_LIST_DIR}/src/*.c)
+    add_library(lvgl INTERFACE)
+    target_sources(lvgl INTERFACE ${SOURCES})
+    target_include_directories(lvgl INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 else()
 
     file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_LIST_DIR}/src/*.c)
