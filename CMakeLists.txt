@@ -87,9 +87,9 @@ else()
         # without micropython, build lvgl and examples libs normally
         # default linux build uses this scope
         add_library(lvgl STATIC ${SOURCES})
-#        add_library(lvgl_examples STATIC ${EXAMPLE_SOURCES})
+        add_library(lvgl_examples STATIC ${EXAMPLE_SOURCES})
         add_library(lvgl::lvgl ALIAS lvgl)
-#        add_library(lvgl::examples ALIAS lvgl_examples)
+        add_library(lvgl::examples ALIAS lvgl_examples)
 
         # Allow users to define their own path to lvgl.h
         option(LV_LVGL_H_INCLUDE_SIMPLE "Use #include \"lvgl.h\" instead of #include \"../../lvgl.h\"")
@@ -97,7 +97,7 @@ else()
 
         target_compile_definitions(lvgl PUBLIC $<$<BOOL:${LV_LVGL_H_INCLUDE_SIMPLE}>:LV_LVGL_H_INCLUDE_SIMPLE>)
         target_include_directories(lvgl SYSTEM PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} $<$<BOOL:${LV_LVGL_H_INCLUDE_SIMPLE}>:${LV_LVGL_H_INCLUDE_PATH}>)
-        # target_link_libraries(lvgl_examples PUBLIC lvgl)
+        target_link_libraries(lvgl_examples PUBLIC lvgl)
 
         # Lbrary and headers can be installed to system using make install
         file(GLOB LVGL_PUBLIC_HEADERS
